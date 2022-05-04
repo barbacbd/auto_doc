@@ -36,14 +36,15 @@ def generate(*args, **kwargs):
 
 
     Returns:
-      None: See `Artifacts`
+      List of files that were generated
     """
 
     args = check_args(kwargs)
-    mypath = join(dirname(abspath(__file__)))
-    j2files = {join(mypath, f): f for f in listdir(mypath) if isfile(join(mypath, f)) and f.endswith(".j2")}
+    templates_path = join(dirname(abspath(__file__)), "templates")
+    j2files = {join(templates_path, f): f for f in listdir(templates_path) if isfile(join(templates_path, f)) and f.endswith(".j2")}
     source = args["SOURCE_DIR"]
-    
+
+    generated_files = []
     for full_file, j2file in j2files.items():
 
         log.debug("Reading template {}".format(full_file))
@@ -53,6 +54,10 @@ def generate(*args, **kwargs):
             output = template.render(**args)
 
         # write the files to the source directory where project code should reside
-        log.debug("Writing data to {}".format(join(source, j2file.replace(".j2", ""))))
-        with open("{}/{}".format(join(source, j2file.replace(".j2", ""))), "w+") as ic:
+        gen_file_name = join(source, j2file.replace(".j2", ""))
+        log.debug("Writing data to {}".format(gen_file_name))
+        with open(gen_file_name, "w+") as ic:
             ic.write(output)
+        generated_files.append(gen_file_name)
+
+    return generated_files
