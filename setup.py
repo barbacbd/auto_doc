@@ -16,7 +16,8 @@ setup(
     install_requires=[
         'Sphinx',
         'rinohtype',
-        'sphinx-rtd-theme'
+        'sphinx-rtd-theme',
+        'jinja2'
     ],
     entry_points={
         'console_scripts': [
