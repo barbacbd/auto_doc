@@ -33,7 +33,12 @@ def main():
     """
     Main entry point for the program
     """
-    parser = argparse.ArgumentParser(description='Automatically create the rst files for documentation with Sphinx.')
+    parser = argparse.ArgumentParser(prog='AutoDoc',
+                                     description='Application that will automatically generate the rst files and documentation for Sphinx. '
+                                     "The application only supports python projects, even though sphinx documentation will support others.",
+                                     usage='AutoDoc [-h] <project> [-a ...] [-e <version>] [-c <copyright>] [-t <theme>] [-s <source_dir>] [-b <build_dir>] '
+                                     '[--extensions ...] [--exclusions ...] [--static ...] [--templates ...]'
+    )
     parser.add_argument('PROJECT', metavar='project', type=str, help='Name of the project that the application will document')
     parser.add_argument('-a', '--author', dest='AUTHOR', nargs='+', help='Author(s) (space separated) that created the project', default=[])
     parser.add_argument('-e', '--version', dest='VERSION', type=str, help='Version for the project', default='0.0.0')

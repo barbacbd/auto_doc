@@ -1,2 +1,0 @@
-# AutoDoc Templates
-

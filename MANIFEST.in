@@ -1,1 +1,1 @@
-include autodoc_ext/templates/*.j2
+include autodoc_ext/*.j2

@@ -1,5 +1,5 @@
 import pytest
-from autodoc_ext.templates.templates import simple_arg_format, list_arg_format, check_args
+from autodoc_ext.args import simple_arg_format, list_arg_format, check_args
 from datetime import datetime
 
 
