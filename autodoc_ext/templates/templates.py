@@ -109,9 +109,9 @@ def generate(*args, **kwargs):
       COPYRIGHT               (int): Year of the copyright for the `PROJECT`.
       AUTHOR                  (str): Author(s) of the `PROJECT` as a single string.
       VERSION                 (str): Version of the `PROJECT`.
-      EXTENSIONS        (list[str]): Extenion packages that can be combined with sphinx. Ex: rinoh.
+      EXTENSIONS        (list[str]): Extension packages that can be combined with sphinx. Ex: rinoh.
       TEMPLATES         (list[str]): Path(s) containing templates.
-      EXTENSIONS   (list[str/path]): Path(s) and patterns of files to exclude from documentation.
+      EXCLUSIONS   (list[str/path]): Path(s) and patterns of files to exclude from documentation.
       THEME                   (str): The theme to use for HTML and HTML Help pages.
       STATIC_PATHS (list[str/path]): Path(s) that contain custom static files.
       SOURCE_DIR         (str/path): Directory where the source of the software package is located.
