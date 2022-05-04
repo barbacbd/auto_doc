@@ -17,7 +17,7 @@ setup(
     long_description=long_description,
     long_description_content_type='text/markdown',
     packages=find_packages(),
-    python_requires='>=3.0, <3.9',
+    python_requires='>=3.0, <4.0',
     install_requires=[
         'Sphinx',
         'sphinx-rtd-theme',
