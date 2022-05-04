@@ -86,7 +86,7 @@ def check_args(*args, **kwargs):
     """
     return {
         "PROJECT": simple_arg_format(kwargs.get("PROJECT", ""), str, ""),
-        "COPYRIGHT": simple_arg_format(kwargs.get("COPYRIGHT", datetime.now().year()), (int, str), datetime.now().year()),
+        "COPYRIGHT": simple_arg_format(kwargs.get("COPYRIGHT", datetime.now().year), (int, str), datetime.now().year),
         "AUTHOR": simple_arg_format(kwargs.get("AUTHOR", ""), str, ""),
         "VERSION": simple_arg_format(kwargs.get("VERSION", "0.0.0"), str, "0.0.0"),
         "EXTENSIONS": list_arg_format(kwargs.get("EXTENSIONS", []), str),

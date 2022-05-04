@@ -6,7 +6,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='autodoc',
+    name='autodoc-ext',
     version='0.0.1',
     license='MIT',
     long_description=long_description,
