@@ -1,13 +1,18 @@
 from setuptools import setup, find_packages
-
 from os import path
+from json import loads
+
+
 this_directory = path.abspath(path.dirname(__file__))
 with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
+with open("about.json") as about:
+    jd = loads(about.read())
+    
 setup(
-    name='autodoc-ext',
-    version='0.0.1',
+    name=jd['project'],
+    version=jd['version'],
     license='MIT',
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -15,7 +20,6 @@ setup(
     python_requires='>=3.0, <3.9',
     install_requires=[
         'Sphinx',
-        'rinohtype',
         'sphinx-rtd-theme',
         'jinja2'
     ],
@@ -24,11 +28,12 @@ setup(
             'autodoc=autodoc.__main__:main'
         ]
     },
-    url='https://barbacbd@bitbucket.org/barbacbd/nautical',
-    download_url='https://barbacbd@bitbucket.org/barbacbd/nautical/archive/v_101.tar.gz',
-    description='The nautical package is able to lookup NOAA buoy data including swell and wave information.',
-    author='Brent Barbachem',
-    author_email='barbacbd@dukes.jmu.edu',
+    package_data={'': ['*.j2']},
+    url=jd['url'],
+    download_url='{}/archive/v_{}.tar.gz'.format(jd["url"], jd["version"].replace(".", "")),
+    description='Spinx Autodoc extension that will automatically create and cleanup artifacts.',
+    author=jd['author'],
+    author_email=jd['email'],
     include_package_data=True,
     zip_safe=False
 )
