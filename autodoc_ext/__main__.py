@@ -2,6 +2,8 @@ import argparse
 import logging
 from datetime import datetime
 import os
+from .tree import generate_tree
+from .templates import generate_rst
 
 
 class LogColorFormatter(logging.Formatter):
@@ -163,12 +165,8 @@ def main():
     handler.setFormatter(LogColorFormatter())
     log.addHandler(handler)
 
-    for root, dirs, files in os.walk("."):
-        path = root.split(os.sep)
-        print(path)
-        print((len(path) - 1) * '---', os.path.basename(root))
-        for file in files:
-            print(len(path) * '---', file)
+    src_tree = generate_tree(directory=args.SOURCE_DIR)
+    generate_rst(src_tree, "example_rst_docs")
 
 
 if __name__ == "__main__":
