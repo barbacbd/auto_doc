@@ -25,7 +25,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'autodoc=autodoc.__main__:main'
+            'AutoDocExt=autodoc_ext.__main__:main'
         ]
     },
     package_data={'': ['*.j2']},
