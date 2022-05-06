@@ -3,8 +3,10 @@ from os.path import abspath, dirname, isfile, join
 from os import listdir
 from logging import getLogger
 from .args import check_args
-from os.path import exists
+from os.path import exists, join
 from os import makedirs
+from shutil import rmtree
+from pathlib import Path
 
 
 log = getLogger()
@@ -65,22 +67,25 @@ def generate_sphinx(*args, **kwargs):
     Artifacts:
       The following artifacts will be placed into the `SOURCE_DIR`
 
-      Makefile: see `Makefile.j2`
-      make.bat: see `make.bat.j2`
-      conf.py:  see `conf.py.j2`
-
+      Makefile:  see `Makefile.j2`
+      make.bat:  see `make.bat.j2`
+      conf.py:   see `conf.py.j2`
+      index.rst: see `index.rst.j2`
 
     Returns:
       List of files that were generated
     """
-    args = check_args(kwargs)
+    print(kwargs)
+    
+    fargs = check_args(**kwargs)
+    print(fargs)
     templates_path = join(dirname(abspath(__file__)), "templates/sphinx")
     j2files = {
       join(templates_path, f): f
       for f in listdir(templates_path)
       if isfile(join(templates_path, f)) and f.endswith(".j2")
     }
-    source = args["SOURCE_DIR"]
+    source = fargs["SOURCE_DIR"]
 
     generated_files = []
     for full_file, j2file in j2files.items():
@@ -89,7 +94,7 @@ def generate_sphinx(*args, **kwargs):
         with open(full_file, "r") as jf:
             template = Template(jf.read())
             log.debug("Rendering template {}".format(full_file))
-            output = template.render(**args)
+            output = template.render(**fargs)
 
         # write the files to the source directory where project
         # code should reside
@@ -123,6 +128,8 @@ def generate_modules_rst(package, directory):
   log.info("Writing data to {}".format(generated_file))
   with open(generated_file, "w+") as gen_file:
     gen_file.write(output)
+  
+  return generated_file
 
 
 def generate_rst(tree, directory="."):
@@ -132,11 +139,15 @@ def generate_rst(tree, directory="."):
         tree (Node): Node class that is used to generate rst documents.
         directory (str, optional): Output directory for all rst documents.
         Defaults to ".".
+        
+    Returns:
+      dict: Dictionary of artifacts that were created
     """
-    def _generate_rst(t, d, templates, p=None):
+    def _generate_rst(artifact_dict, t, d, templates, p=None):
         """Generate the rst files for the tree [inner function]
 
         Args:
+            artifact_dict (Dict): Dictionary of artifacts
             t (Node): Node class that is used to generate rst documents.
             d (str, optional): Output directory for all rst documents.
             Defaults to ".".
@@ -172,13 +183,17 @@ def generate_rst(tree, directory="."):
         template_data["CONTENTS"] = "\n\n".join(contents)
         
         output = templates["rst"].render(template_data)
-        rst_filename = join(directory, "{}.rst".format(template_data["PACKAGE"]))
+        rst_filename = join(directory, "{}.rst".format(
+          template_data["PACKAGE"]))
         log.info("Generating {}".format(rst_filename))
         with open(rst_filename, "w+") as rst_file:
             rst_file.write(output)
+        log.debug("Saving artifact: {}".format(rst_file))
+        artifact_dict[str(rst_filename)] = False
         
         for child in t.children:
-            _generate_rst(child, d, templates, p=template_data["PACKAGE"])
+            _generate_rst(
+              artifact_dict,child, d, templates, p=template_data["PACKAGE"])
 
     # Dictionary that will contain all Templates so they do not need to be 
     # generated each time the inner function is called
@@ -197,5 +212,37 @@ def generate_rst(tree, directory="."):
         log.info("Creating directory {}".format(directory))
         makedirs(directory)
 
-    generate_modules_rst(tree.name, directory=directory)
-    _generate_rst(tree, directory, templates)
+    artifacts = {
+      directory: False,
+      generate_modules_rst(tree.name, directory=directory): False
+    }
+    _generate_rst(artifacts, tree, directory, templates)
+    return artifacts
+
+
+def generate_docs_dir(source_dir, build_dir):
+  """Generate the information required to build Docs
+
+  Args:
+      source_dir (str): Directory of the source
+      build_dir (str): Build/Docs directory relative to source_dir
+
+  Returns:
+      dict: artifacts that were created
+  """
+  docs_dir = join(source_dir, build_dir)
+  if exists(docs_dir):
+    rmtree(docs_dir)
+  makedirs(docs_dir)
+  
+  # create a routing path to the next level index.html
+  index_filename = join(docs_dir, "index.html")
+  with open(index_filename, "w+") as index_file:
+    index_file.write(
+      "<meta http-equiv=\"refresh\" content=\"0; url=./html/index.html\" />")
+
+  # create the necessary .nojekyll file
+  jekyll_filename = join(docs_dir, ".nojekyll")
+  Path(jekyll_filename).touch()
+  
+  return {index_filename: True, jekyll_filename: True}

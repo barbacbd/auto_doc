@@ -118,6 +118,13 @@ def generate_tree(directory="."):
     leaf = Node(base_dir_name, path=full_dir)
     for filename in os.listdir(full_dir):
 
+        if filename.startswith("."):
+            log.warning("Hidden file {}, skipping ...".format(filename))
+            continue
+        
+        if not filename.endswith(".py"):
+            continue
+
         full_filename = os.path.join(full_dir, filename)
         if os.path.islink(full_filename):
             log.warning("  Found link: {}, skipping ...".format(filename))

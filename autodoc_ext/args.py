@@ -59,7 +59,7 @@ def list_arg_format(list_of_values, expected_types):
           ))
         simple_output = simple_arg_format(
           list_of_values, expected_types, None
-        )
+        )     
         if simple_output is not None:
             return [simple_output]
 
@@ -105,18 +105,26 @@ def check_args(*args, **kwargs):
       dict: dictionary formatted with the arguments above, if they did not
             exist in `kwargs`, defaults will be applied.
     """
+    
+    extensions = list_arg_format(kwargs.get(
+      "EXTENSIONS", ['sphinx.ext.autodoc']), str)
+    templates = list_arg_format(kwargs.get("TEMPLATES", ""), str)
+    exclusions = list_arg_format(kwargs.get("EXCLUSIONS", ""), str)
+    static_paths = list_arg_format(kwargs.get("STATIC_PATHS", ""), str)
+
     return {
         "PROJECT": simple_arg_format(kwargs.get("PROJECT", ""), str, ""),
         "COPYRIGHT": simple_arg_format(kwargs.get(
           "COPYRIGHT", datetime.now().year), (int, str), datetime.now().year),
-        "AUTHOR": simple_arg_format(kwargs.get("AUTHOR", ""), str, ""),
+        "AUTHOR": simple_arg_format(
+          ",".join(kwargs.get("AUTHOR", "")), str, ""),
         "VERSION": simple_arg_format(
           kwargs.get("VERSION", "0.0.0"), str, "0.0.0"),
-        "EXTENSIONS": list_arg_format(kwargs.get("EXTENSIONS", []), str),
-        "TEMPLATES": list_arg_format(kwargs.get("TEMPLATES", []), str),
-        "EXCLUSIONS": list_arg_format(kwargs.get("EXCLUSIONS", []), str),
+        "EXTENSIONS": extensions,
+        "TEMPLATES": templates,
+        "EXCLUSIONS": exclusions,
         "THEME": simple_arg_format(kwargs.get("THEME", ""), str, ""),
-        "STATIC_PATHS": list_arg_format(kwargs.get("STATIC_PATHS", []), str),
+        "STATIC_PATHS": static_paths,
         "SOURCE_DIR": simple_arg_format(
           kwargs.get("SOURCE_DIR", "."), str, "."),
         "BUILD_DIR": simple_arg_format(

@@ -3,7 +3,8 @@ import logging
 from datetime import datetime
 import os
 from .tree import generate_tree
-from .templates import generate_rst
+from .templates import generate_rst, generate_sphinx, generate_docs_dir
+from .artifacts import log_artifacts, destroy
 
 
 class LogColorFormatter(logging.Formatter):
@@ -88,11 +89,21 @@ def main():
         default='sphinx_rtd_theme'
     )
     parser.add_argument(
-        '-s', '--source_dir', dest='SOURCE_DIR',
+        '-d', '--source_dir', dest='PROJECT_SOURCE',
         type=str,
         help=(
-            'Source directory for the project. This will be the site where '
-            'project documentation is generated.'
+            'Directory where the project files reside. These files should '
+            'include the ones for which documenation will be generated.'
+        ),
+        default='.'
+    )
+    # NOTE the destination is SOURCE_DIR below, that is for the tempaltes
+    parser.add_argument(
+        '-s', '--install_dir', dest='SOURCE_DIR',
+        type=str,
+        help=(
+            'Installation directory for the artifacts. This will be the site '
+            'where project documentation is generated.'
         ),
         default='.'
     )
@@ -112,7 +123,7 @@ def main():
             'Add any Sphinx extension module names here, as strings. '
             'These can be sphinx generated or custom extensions.'
         ),
-        default=[]
+        default=['sphinx.ext.autodoc']
     )
     parser.add_argument(
         '--templates', dest='TEMPLATES',
@@ -147,6 +158,14 @@ def main():
         default=0,
         help='Verbosity level for logging'
     )
+    parser.add_argument(
+        '--hide_artifacts',
+        help=(
+            'When present, the artifacts file will be hidden in '
+            'the SOURCE_DIR.'
+        ),
+        action='store_true'
+    )
     args = parser.parse_args()
 
     # verbosity starts at 10 and moves to 50
@@ -165,8 +184,78 @@ def main():
     handler.setFormatter(LogColorFormatter())
     log.addHandler(handler)
 
-    src_tree = generate_tree(directory=args.SOURCE_DIR)
-    generate_rst(src_tree, "example_rst_docs")
+    log.info("Generating templates")
+    main_templates = generate_sphinx(**vars(args))
+    log.debug("Created the following files from templates: \n\t{}".format(
+              "\n\t".join(main_templates)))
+    
+    artifacts = {}
+    for temp in main_templates:
+        artifacts[temp] = False
+
+    log.info("Source Directory set to {}".format(args.PROJECT_SOURCE))
+    src_tree = generate_tree(directory=args.PROJECT_SOURCE)
+    rst_artifacts = generate_rst(src_tree, "{}/rst_docs".format(
+        args.SOURCE_DIR))
+    artifacts.update(rst_artifacts)
+    artifacts.update(generate_docs_dir(args.SOURCE_DIR, args.BUILD_DIR))
+
+    log_artifacts(
+        args.SOURCE_DIR, artifacts=artifacts, hide_file=args.hide_artifacts)
+
+
+def cleanup():
+    # main entry point for destruction
+    parser = argparse.ArgumentParser(
+        prog='AutoDocExtClean',
+        description=(
+            'Application that will automatically generate the rst files '
+            'and documentation for Sphinx. The application only supports '
+            'python projects, even though sphinx documentation will '
+            'support others.'
+        ),
+        usage=(
+            'AutoDoc [-h] <project> [-a ...] [-e <version>] [-c <copyright>] '
+            '[-t <theme>] [-s <source_dir>] [-b <build_dir>] '
+            '[--extensions ...] [--exclusions ...] [--static ...] '
+            '[--templates ...]'
+        )
+    )
+    parser.add_argument(
+        '-s', '--source_dir', dest='SOURCE_DIR',
+        type=str,
+        help=(
+            'Installation directory for the artifacts. This will be the site '
+            'where project documentation is generated.'
+        ),
+        default='.'
+    )
+    parser.add_argument(
+        '-v', '--verbose',
+        action='count',
+        default=0,
+        help='Verbosity level for logging'
+    )
+    args = parser.parse_args()
+
+    # verbosity starts at 10 and moves to 50
+    if args.verbose > 0:
+        verbosity = 50 - (10*(args.verbose-1))
+    else:
+        verbosity = logging.CRITICAL
+
+    # Create the logger. Use the default name for every log that will operate
+    # during the use of this application.
+    log = logging.getLogger()
+    log.setLevel(verbosity)
+
+    # Add a formatter to color the log output and format the text
+    handler = logging.StreamHandler()
+    handler.setFormatter(LogColorFormatter())
+    log.addHandler(handler)
+    
+    log.info("Cleaning artifacts ...")
+    destroy(args.SOURCE_DIR)
 
 
 if __name__ == "__main__":

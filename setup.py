@@ -21,11 +21,13 @@ setup(
     install_requires=[
         'Sphinx',
         'sphinx-rtd-theme',
-        'jinja2'
+        'jinja2',
+        'pyyaml'
     ],
     entry_points={
         'console_scripts': [
-            'AutoDocExt=autodoc_ext.__main__:main'
+            'AutoDocExt=autodoc_ext.__main__:main',
+            'AutoDocExtClean=autodoc_ext.__main__:cleanup'
         ]
     },
     package_data={'': ['*.j2']},
