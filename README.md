@@ -7,7 +7,7 @@
 
 
 The repository contains the application consisting of an auto doc extension for sphinx's autodoc (which is already an extension).
-
+Documentation can be found [here](https://barbacbd.github.io/auto_doc/html/index.html).
 
 # AutoDocExt
 
