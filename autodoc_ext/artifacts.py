@@ -7,7 +7,6 @@ from os import remove
 
 
 log = getLogger()
-
 ARTIFACTS_FILENAME = "autodoc_ext_artifacts.yaml"
 
 

@@ -14,8 +14,15 @@ class Node:
     """
     
     def __init__(self, name, path=None):
+        """Initialize the instance of a Node
+
+        Args:
+            name (str): Name of this node/leaf.
+            path (str, optional): path in the tree for this instance. Defaults to None.
+        """
         self.name = name
         self.path = path
+        self.parent = None
         self.children = []
         self.files = []
     
@@ -35,34 +42,17 @@ class Node:
                 file_data = ast.parse(file_handle.read())
                 classes.extend(
                 [
-                    found_cls.name for found_cls in ast.walk(file_data)
+                    "{}.{}::{}".format(self.parent,filename.split("/")[-1].replace(".py", ""), str(found_cls.name))
+                    for found_cls in ast.walk(file_data)
                     if isinstance(found_cls, ast.ClassDef)
                 ]
             )
+        log.critical(classes)
         return classes
     
     @property
     def json(self):
         """JSON formatted dictionary object for this node
-
-        Sample output:
-        ```{
-            "NodeName": {
-                "path": "/home/USER/project_base/module_name",
-                "children": [
-                    "NodeChild"
-                ],
-                "files": [
-                    "__init__.py",
-                    "example.py",
-                    "example_2.py",
-                ],
-                "classes": [
-                    "Class1",
-                    "Class2",
-                ]
-            }
-        }```
 
         Returns:
             dict: Dictionary containing the children, filenames, path and
@@ -94,14 +84,15 @@ class Node:
         return dumps(self.json, indent=4)
 
 
-def generate_tree(directory="."):
-    """_summary_
+def generate_tree(directory=".", parent=0):
+    """Generate the tree by walking the directory structure and creating
+    a node for each directory that has been found.
 
     Args:
         directory (str, optional): Directory where all files for the
         project will reside. Generally this will only be the source
         directory for the code. Defaults to ".".
-
+        parent: parent directory depth. Default to 0
     Returns:
         Node: A tree containing all information from the directory walk
     """
@@ -116,6 +107,11 @@ def generate_tree(directory="."):
     log.debug("Setting base directory name to {}".format(base_dir_name))
 
     leaf = Node(base_dir_name, path=full_dir)
+    if parent == 0:
+        leaf.parent = base_dir_name
+    else:
+        leaf.parent = ".".join(full_dir[-parent:])
+    
     for filename in os.listdir(full_dir):
 
         if filename.startswith("."):

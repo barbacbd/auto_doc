@@ -27,11 +27,10 @@ autoModuleTemplate = \
 '''.. automodule:: {{ PACKAGE }}
    :members:
    :undoc-members:
-   :show-inheritence:
 '''
 
 autoClassTemplate = \
-'''.. {{ AUTOTYPE }}:: {{ PACKAGE }}::{{ CLASSNAME }}
+'''.. {{ AUTOTYPE }}:: {{ CLASSNAME }}
    :members:
    :undoc-members:
    :private-members:
@@ -75,8 +74,6 @@ def generate_sphinx(*args, **kwargs):
     Returns:
       List of files that were generated
     """
-    print(kwargs)
-    
     fargs = check_args(**kwargs)
     print(fargs)
     templates_path = join(dirname(abspath(__file__)), "templates/sphinx")
@@ -108,7 +105,7 @@ def generate_sphinx(*args, **kwargs):
 
 
 def generate_modules_rst(package, directory):
-  """_summary_
+  """Generate the base modules.rst file
 
   Args:
       package (_type_): _description_

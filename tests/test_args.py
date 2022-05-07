@@ -86,7 +86,7 @@ def test_all_defaults():
     assert results["COPYRIGHT"] == datetime.now().year
     assert results["AUTHOR"] == ""
     assert results["VERSION"] == "0.0.0"
-    assert results["EXTENSIONS"] == []
+    assert len(results["EXTENSIONS"]) > 0
     assert results["TEMPLATES"] == []
     assert results["EXCLUSIONS"] == []
     assert results["THEME"] == ""
@@ -100,7 +100,7 @@ def test_all_set_no_defaults():
     predata = {
         "PROJECT": "TEST",
         "COPYRIGHT": datetime.now().year-1,
-        "AUTHOR":  "ME",
+        "AUTHOR":  ["ME"],
         "VERSION": "1.0.0",
         "EXTENSIONS": ["TEST_EXT"],
         "TEMPLATES": ["TEST_TEMPLATES"],
@@ -114,7 +114,10 @@ def test_all_set_no_defaults():
     results = check_args(**predata)
 
     for k, v in results.items():
-        assert v == predata[k]
+        if k == "AUTHOR":
+            assert v == predata[k][0]
+        else:
+            assert v == predata[k]
 
 def test_values_set_incorrect_names():
     '''the values with incorrect names/keys will not be set correctly'''

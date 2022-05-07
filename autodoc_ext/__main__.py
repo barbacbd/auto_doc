@@ -1,10 +1,10 @@
 import argparse
 import logging
 from datetime import datetime
-import os
 from .tree import generate_tree
 from .templates import generate_rst, generate_sphinx, generate_docs_dir
 from .artifacts import log_artifacts, destroy
+from os import system
 
 
 class LogColorFormatter(logging.Formatter):
@@ -123,7 +123,7 @@ def main():
             'Add any Sphinx extension module names here, as strings. '
             'These can be sphinx generated or custom extensions.'
         ),
-        default=['sphinx.ext.autodoc']
+        default=['sphinx.ext.autodoc', 'sphinx.ext.autosummary']
     )
     parser.add_argument(
         '--templates', dest='TEMPLATES',
@@ -203,6 +203,9 @@ def main():
     log_artifacts(
         args.SOURCE_DIR, artifacts=artifacts, hide_file=args.hide_artifacts)
 
+    log.info("Executing sphinx")
+    
+    system("cd {} && make html && cd -".format(args.SOURCE_DIR))
 
 def cleanup():
     # main entry point for destruction

@@ -107,10 +107,10 @@ def check_args(*args, **kwargs):
     """
     
     extensions = list_arg_format(kwargs.get(
-      "EXTENSIONS", ['sphinx.ext.autodoc']), str)
-    templates = list_arg_format(kwargs.get("TEMPLATES", ""), str)
-    exclusions = list_arg_format(kwargs.get("EXCLUSIONS", ""), str)
-    static_paths = list_arg_format(kwargs.get("STATIC_PATHS", ""), str)
+      "EXTENSIONS", ['sphinx.ext.autodoc', 'sphinx.ext.autosummary']), str)
+    templates = list_arg_format(kwargs.get("TEMPLATES", []), str)
+    exclusions = list_arg_format(kwargs.get("EXCLUSIONS", []), str)
+    static_paths = list_arg_format(kwargs.get("STATIC_PATHS", []), str)
 
     return {
         "PROJECT": simple_arg_format(kwargs.get("PROJECT", ""), str, ""),
