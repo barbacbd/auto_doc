@@ -83,8 +83,8 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>(</strong><strong>str</strong><strong>)</strong> (<em>build_dir</em>) – Directory of the source</p></li>
-<li><p><strong>(</strong><strong>str</strong><strong>)</strong> – Build/Docs directory relative to source_dir</p></li>
+<li><p><strong>source_dir</strong> – Directory of the source</p></li>
+<li><p><strong>build_dir</strong> – Build/Docs directory relative to source_dir</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -117,15 +117,12 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>(</strong><strong>Node</strong><strong>)</strong> (<em>tree</em>) – Node class that is used to generate rst documents.</p></li>
-<li><p><strong>optional</strong><strong>)</strong> (<em>directory</em><em> (</em><em>str</em><em>,</em>) – Output directory for all rst documents.</p></li>
+<li><p><strong>tree</strong> – Node class that is used to generate rst documents.</p></li>
+<li><p><strong>directory</strong> – Output directory for all rst documents.</p></li>
 </ul>
 </dd>
-</dl>
-<p>Defaults to “.”.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Dictionary of artifacts that were created</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dictionary of artifacts that were created</p>
 </dd>
 </dl>
 </dd></dl>
@@ -201,18 +198,15 @@ the list of values is a primitive or simple type, it will be wrapped in
 a list and returned.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>list_of_values</strong> – List (or primitive type) where the values will be</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>list_of_values</strong> – List of values of expected types.</p></li>
+<li><p><strong>expected_types</strong> – tuple of types to be used for verification</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of values that matched the expected_types.</p>
 </dd>
 </dl>
-<p>checked. When the values are of the expected type, they are added to a
-returned list.
-:param expected_types (tuple): tuple of types to be used for verification</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>All values that matched the expected_types will be added to the</p>
-</dd>
-</dl>
-<p>returned list.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -224,13 +218,14 @@ default value:</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>value</strong> – Value to be checked</p></li>
-<li><p><strong>(</strong><strong>tuple</strong><strong>)</strong> (<em>expected_types</em>) – tuple of types to be used for verification</p></li>
-<li><p><strong>default</strong> – default value to be set in the event that value is not of</p></li>
+<li><p><strong>expected_types</strong> – tuple of types to be used for verification</p></li>
+<li><p><strong>default</strong> – value used when <cite>value</cite> is not of expected_types.</p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>value if matching expected types otherwise default</p>
+</dd>
 </dl>
-<p>expected_types.
-:return: value if matching expected types otherwise default</p>
 </dd></dl>
 
 <span class="target" id="module-autodoc_ext.artifacts"></span><dl class="py function">
@@ -259,13 +254,11 @@ destruction/cleanup process. The name of the file will be
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>source_dir</strong> – Source directory where the artifaces file will reside.</p></li>
-<li><p><strong>artifacts</strong> – Dictionary containing the artifacts that have been</p></li>
+<li><p><strong>artifacts</strong> – Dictionary of created artifacts.</p></li>
+<li><p><strong>hide_file</strong> – When true [default], hide the artifacts file.</p></li>
 </ul>
 </dd>
 </dl>
-<p>created and whether or not they should reside
-:param hide_file: When true [default], hide the artifacts file when
-created.</p>
 </dd></dl>
 
 <span class="target" id="module-autodoc_ext.tree"></span><dl class="py class">
@@ -294,7 +287,6 @@ subdirectories, path).</p>
 <dd class="field-odd"><p>List of classes that were found in the files of this tree.</p>
 </dd>
 </dl>
-<p>This does NOT include the classes found in the children.</p>
 </dd></dl>
 
 <dl class="py property">
@@ -303,10 +295,9 @@ subdirectories, path).</p>
 <dd><p>JSON formatted dictionary object for this node</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Dictionary containing the children, filenames, path and</p>
+<dd class="field-odd"><p>json formatted dictionary for this instance.</p>
 </dd>
 </dl>
-<p>classes that reside in the current tree node.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -315,13 +306,10 @@ subdirectories, path).</p>
 <dd><p>Get the project files without the extension.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>filenames</strong> – list of filenames in this instance. Use</p>
+<dd class="field-odd"><p><strong>filenames</strong> – list of filenames in this instance.</p>
 </dd>
-</dl>
-<p>the <cite>all_filenames</cite> or <cite>public_filenames</cite> filters.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Dictionary of full filename along with the formatted name.</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dictionary of full filename along with the formatted name.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -347,13 +335,15 @@ are not prefaced with an underscore.</p>
 a node for each directory that has been found.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>optional</strong><strong>)</strong> (<em>directory</em><em> (</em><em>str</em><em>,</em>) – Directory where all files for the</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>directory</strong> – Directory where all files for the project will reside.</p></li>
+<li><p><strong>parent</strong> – parent directory depth.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tree (Node) containing all information from the directory walk</p>
 </dd>
 </dl>
-<p>:param project will reside. Generally this will only be the source
-:param directory for the code. Defaults to “.”.
-:param parent: parent directory depth. Default to 0
-:return: A tree (Node) containing all information from the directory walk</p>
 </dd></dl>
 
 <dl class="py class">
@@ -507,7 +497,6 @@ subdirectories, path).</p>
 <dd class="field-odd"><p>List of classes that were found in the files of this tree.</p>
 </dd>
 </dl>
-<p>This does NOT include the classes found in the children.</p>
 </dd></dl>
 
 <dl class="py property">
@@ -516,10 +505,9 @@ subdirectories, path).</p>
 <dd><p>JSON formatted dictionary object for this node</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Dictionary containing the children, filenames, path and</p>
+<dd class="field-odd"><p>json formatted dictionary for this instance.</p>
 </dd>
 </dl>
-<p>classes that reside in the current tree node.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -528,13 +516,10 @@ subdirectories, path).</p>
 <dd><p>Get the project files without the extension.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>filenames</strong> – list of filenames in this instance. Use</p>
+<dd class="field-odd"><p><strong>filenames</strong> – list of filenames in this instance.</p>
 </dd>
-</dl>
-<p>the <cite>all_filenames</cite> or <cite>public_filenames</cite> filters.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Dictionary of full filename along with the formatted name.</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dictionary of full filename along with the formatted name.</p>
 </dd>
 </dl>
 </dd></dl>

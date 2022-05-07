@@ -17,10 +17,8 @@ def log_artifacts(source_dir, artifacts, hide_file=True):
     `autodoc_ext_artifacts.yaml`.
 
     :param source_dir: Source directory where the artifaces file will reside.
-    :param artifacts: Dictionary containing the artifacts that have been
-    created and whether or not they should reside
-    :param hide_file: When true [default], hide the artifacts file when
-    created.
+    :param artifacts: Dictionary of created artifacts.
+    :param hide_file: When true [default], hide the artifacts file.
     """
     filename = "."+ARTIFACTS_FILENAME if hide_file else ARTIFACTS_FILENAME
     artifact_file = join(source_dir, filename)
@@ -37,7 +35,6 @@ def destroy(source_dir):
     in the file designated `keep` will be kept as part of the destruction.
 
     :param source_dir: Source directory where the artifacts file will reside.
-
     :return: True when the data was successfully removed, false otherwise
     """
 

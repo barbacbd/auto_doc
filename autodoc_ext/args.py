@@ -11,9 +11,8 @@ def simple_arg_format(value, expected_types, default):
     default value:
 
     :param value: Value to be checked
-    :param expected_types (tuple): tuple of types to be used for verification
-    :param default: default value to be set in the event that value is not of
-    expected_types.
+    :param expected_types: tuple of types to be used for verification
+    :param default: value used when `value` is not of expected_types.
     :return: value if matching expected types otherwise default
     """
     log.debug("simple_arg_format: {} - {} - {}".format(
@@ -35,13 +34,9 @@ def list_arg_format(list_of_values, expected_types):
     the list of values is a primitive or simple type, it will be wrapped in
     a list and returned.
 
-    :param list_of_values: List (or primitive type) where the values will be
-    checked. When the values are of the expected type, they are added to a
-    returned list.
-    :param expected_types (tuple): tuple of types to be used for verification
-
-    :return: All values that matched the expected_types will be added to the
-    returned list.
+    :param list_of_values: List of values of expected types.
+    :param expected_types: tuple of types to be used for verification
+    :return: List of values that matched the expected_types.
     """
     log.debug("list_arg_format: {} - {}".format(
       list_of_values, expected_types

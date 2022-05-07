@@ -121,20 +121,18 @@ def generate_modules_rst(package, directory):
 def generate_rst(tree, directory="."):
     """Generate the rst files for the tree
 
-    :param tree (Node): Node class that is used to generate rst documents.
-    :param directory (str, optional): Output directory for all rst documents.
-    Defaults to ".".
-        
+    :param tree: Node class that is used to generate rst documents.
+    :param directory: Output directory for all rst documents.
     :return: Dictionary of artifacts that were created
     """
     def _generate_rst(artifact_dict, t, d, templates, p=None):
         """Generate the rst files for the tree [inner function]
 
-        :param: artifact_dict (Dict): Dictionary of artifacts
-        :param t (Node): Node class that is used to generate rst documents.
-        :param d (str, optional): Output directory for all rst documents.
-        :param templates (dict): dict of Jinja Templates
-        :param p (str): Parent string for the current node. Defaults to None.
+        :param: artifact_dict: Dictionary of artifacts
+        :param t: Node class that is used to generate rst documents.
+        :param d: Output directory for all rst documents.
+        :param templates: dict of Jinja Templates
+        :param p: Parent string for the current node. Defaults to None.
         """
         template_data = {"PACKAGE": p+"."+t.name if p is not None else t.name}
         subpackages = ["{}.{}".format(
@@ -210,8 +208,8 @@ def generate_rst(tree, directory="."):
 def generate_docs_dir(source_dir, build_dir):
   """Generate the information required to build Docs
 
-  :param source_dir (str): Directory of the source
-  :param build_dir (str): Build/Docs directory relative to source_dir
+  :param source_dir: Directory of the source
+  :param build_dir: Build/Docs directory relative to source_dir
   :return: artifacts that were created
   """
   docs_dir = join(source_dir, build_dir)

@@ -16,8 +16,8 @@ class Node:
     def __init__(self, name, path=None):
         """Initialize the instance of a Node
 
-        :param name (str): Name of this node/leaf.
-        :param path (str, optional): path in the tree for this instance.
+        :param name: Name of this node/leaf.
+        :param path: path in the tree for this instance.
         Defaults to None.
         """
         self.name = name
@@ -47,9 +47,7 @@ class Node:
     def project_files(self, filenames):
         """Get the project files without the extension.
 
-        :param filenames: list of filenames in this instance. Use
-        the `all_filenames` or `public_filenames` filters.
-
+        :param filenames: list of filenames in this instance.
         :return: Dictionary of full filename along with the formatted name.
         """
         return { filename:
@@ -63,7 +61,6 @@ class Node:
         """Get the list of classes found in the files of this instance
 
         :return: List of classes that were found in the files of this tree.
-        This does NOT include the classes found in the children.
         """
         classes = []
         for longfile, shortfile in \
@@ -84,8 +81,7 @@ class Node:
     def json(self):
         """JSON formatted dictionary object for this node
 
-        :return: Dictionary containing the children, filenames, path and
-        classes that reside in the current tree node.
+        :return: json formatted dictionary for this instance.
         """
         jsonDict = {self.name: {}}
 
@@ -116,10 +112,8 @@ def generate_tree(directory=".", parent=0):
     """Generate the tree by walking the directory structure and creating
     a node for each directory that has been found.
 
-    :param directory (str, optional): Directory where all files for the
-    :param project will reside. Generally this will only be the source
-    :param directory for the code. Defaults to ".".
-    :param parent: parent directory depth. Default to 0
+    :param directory: Directory where all files for the project will reside.
+    :param parent: parent directory depth.
     :return: A tree (Node) containing all information from the directory walk
     """
     log.info("Generating tree info for the directory {}".format(directory))
