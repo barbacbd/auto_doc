@@ -10,14 +10,11 @@ def simple_arg_format(value, expected_types, default):
     Check that the value is of an expected type. If it is not, use the
     default value:
 
-    Args:
-      value: Value to be checked
-      expected_types (tuple): tuple of types to be used for verification
-      default: default value to be set in the event that value is not of
-               expected_types.
-
-    Returns:
-      type: value if matching expected types otherwise default
+    :param value: Value to be checked
+    :param expected_types (tuple): tuple of types to be used for verification
+    :param default: default value to be set in the event that value is not of
+    expected_types.
+    :return: value if matching expected types otherwise default
     """
     log.debug("simple_arg_format: {} - {} - {}".format(
       value, expected_types, default
@@ -38,16 +35,13 @@ def list_arg_format(list_of_values, expected_types):
     the list of values is a primitive or simple type, it will be wrapped in
     a list and returned.
 
-    Args:
-      list_of_values: List (or primitive type) where the values will be
-      checked. When the values are of the expected type, they are added to a
-      returned list.
+    :param list_of_values: List (or primitive type) where the values will be
+    checked. When the values are of the expected type, they are added to a
+    returned list.
+    :param expected_types (tuple): tuple of types to be used for verification
 
-      expected_types (tuple): tuple of types to be used for verification
-
-    Returns:
-      list: All values that matched the expected_types will be added to the
-      returned list.
+    :return: All values that matched the expected_types will be added to the
+    returned list.
     """
     log.debug("list_arg_format: {} - {}".format(
       list_of_values, expected_types
@@ -81,29 +75,20 @@ def check_args(*args, **kwargs):
     be formatted it will be altered, otherwise the data is reset to a proper
     empty value.
 
-    Args (expected):
-      PROJECT                 (str): Name of the project that the documents
-                                     are generated for.
-      COPYRIGHT               (int): Year of the copyright for the `PROJECT`.
-      AUTHOR                  (str): Author(s) of the `PROJECT` as a single
-                                     string.
-      VERSION                 (str): Version of the `PROJECT`.
-      EXTENSIONS        (list[str]): Extenion packages that can be combined
-                                     with sphinx. Ex: rinoh.
-      TEMPLATES         (list[str]): Path(s) containing templates.
-      EXCLUSIONS   (list[str/path]): Path(s) and patterns of files to exclude
-                                    from documentation.
-      THEME                   (str): The theme to use for HTML and HTML Help
-                                     pages.
-      STATIC_PATHS (list[str/path]): Path(s) that contain custom static files.
-      SOURCE_DIR         (str/path): Directory where the source of the
-                                     software package is located.
-      BUILD_DIR          (str/path): Directory where the sphinx build will
-                                     occur.
+    :param PROJECT: Name of the project that the documents are generated for.
+    :param COPYRIGHT: Year of the copyright for the `PROJECT`.
+    :param AUTHOR: Author(s) of the `PROJECT` as a single string.
+    :param VERSION: Version of the `PROJECT`.
+    :param EXTENSIONS: Extension packages that can be combined with sphinx.
+    :param TEMPLATES: Path(s) containing templates.
+    :param EXCLUSIONS: Path(s) and patterns of files to exclude from docs.
+    :param THEME: The theme to use for HTML and HTML Help pages.
+    :param STATIC_PATHS: Path(s) that contain custom static files.
+    :param SOURCE_DIR: Directory for the source of the software package.
+    :param BUILD_DIR: Directory where the sphinx build will occur.
 
-    Returns:
-      dict: dictionary formatted with the arguments above, if they did not
-            exist in `kwargs`, defaults will be applied.
+    :return: dictionary formatted with the arguments above, if they did not
+    exist in `kwargs`, defaults will be applied.
     """
     
     extensions = list_arg_format(kwargs.get(

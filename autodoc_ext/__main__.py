@@ -5,6 +5,8 @@ from .tree import generate_tree
 from .templates import generate_rst, generate_sphinx, generate_docs_dir
 from .artifacts import log_artifacts, destroy
 from os import system
+from os.path import exists
+from sys import platform
 
 
 class LogColorFormatter(logging.Formatter):
@@ -204,8 +206,20 @@ def main():
         args.SOURCE_DIR, artifacts=artifacts, hide_file=args.hide_artifacts)
 
     log.info("Executing sphinx")
+    log.debug("Attempting to make on {} ...".format(platform))
     
-    system("cd {} && make html && cd -".format(args.SOURCE_DIR))
+    if platform.lower() in ("win32", "cygwin"):
+        log.debug("  Windows system ...")
+        if exists("{}/make.bat".format(args.SOURCE_DIR)):
+            system("cd {} && make.bat html && cd -".format(args.SOURCE_DIR))
+        else:
+            log.error("No make.bat found in {}".format(args.SOURCE_DIR))
+    else:
+        if exists("{}/Makefile".format(args.SOURCE_DIR)):
+            system("cd {} && make html && cd -".format(args.SOURCE_DIR))
+        else:
+            log.error("No Makefile found in {}".format(args.SOURCE_DIR))
+
 
 def cleanup():
     # main entry point for destruction
@@ -251,6 +265,19 @@ def cleanup():
     handler = logging.StreamHandler()
     handler.setFormatter(LogColorFormatter())
     log.addHandler(handler)
+
+    log.debug("Attempting to make clean on {} ...".format(platform))
+    if platform.lower() in ("win32", "cygwin"):
+        log.debug("  Windows system ...")
+        if exists("{}/make.bat".format(args.SOURCE_DIR)):
+            system("cd {} && make.bat clean && cd -".format(args.SOURCE_DIR))
+        else:
+            log.error("No make.bat found in {}".format(args.SOURCE_DIR))
+    else:
+        if exists("{}/Makefile".format(args.SOURCE_DIR)):
+            system("cd {} && make clean && cd -".format(args.SOURCE_DIR))
+        else:
+            log.error("No Makefile found in {}".format(args.SOURCE_DIR))
     
     log.info("Cleaning artifacts ...")
     destroy(args.SOURCE_DIR)

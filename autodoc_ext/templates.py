@@ -27,52 +27,41 @@ autoModuleTemplate = \
 '''.. automodule:: {{ PACKAGE }}
    :members:
    :undoc-members:
+
 '''
 
 autoClassTemplate = \
 '''.. {{ AUTOTYPE }}:: {{ CLASSNAME }}
    :members:
    :undoc-members:
-   :private-members:
-   :special-members:
    :inherited-members:
+
 '''
 
 
 def generate_sphinx(*args, **kwargs):
     """
     Find all .j2 extension files in this directory. Fill the template files
-    with the parameters that were passed in to this function.
-    Args:
-      PROJECT                 (str): Name of the project that the documents
-                                     are generated for.
-      COPYRIGHT               (int): Year of the copyright for the `PROJECT`.
-      AUTHOR                  (str): Author(s) of the `PROJECT` as a single
-                                     string.
-      VERSION                 (str): Version of the `PROJECT`.
-      EXTENSIONS        (list[str]): Extension packages that can be combined
-                                     with sphinx. Ex: rinoh.
-      TEMPLATES         (list[str]): Path(s) containing templates.
-      EXCLUSIONS   (list[str/path]): Path(s) and patterns of files to exclude
-                                     from documentation.
-      THEME                   (str): The theme to use for HTML and HTML Help
-                                     pages.
-      STATIC_PATHS (list[str/path]): Path(s) that contain custom static files.
-      SOURCE_DIR         (str/path): Directory where the source of the
-                                     software package is located.
-      BUILD_DIR          (str/path): Directory where the sphinx build will
-                                     occur.
-
-    Artifacts:
-      The following artifacts will be placed into the `SOURCE_DIR`
-
-      Makefile:  see `Makefile.j2`
-      make.bat:  see `make.bat.j2`
-      conf.py:   see `conf.py.j2`
-      index.rst: see `index.rst.j2`
-
-    Returns:
-      List of files that were generated
+    with the parameters that were passed in to this function. See
+    `args.check_args` for default values. The following artifacts will be placed
+    into the `SOURCE_DIR`:
+    - Makefile:  see `Makefile.j2`
+    - make.bat:  see `make.bat.j2`
+    - conf.py:   see `conf.py.j2`
+    - index.rst: see `index.rst.j2`
+    
+    :param PROJECT: Name of the project that the documents are generated for.
+    :param COPYRIGHT: Year of the copyright for the `PROJECT`.
+    :param AUTHOR: Author(s) of the `PROJECT` as a single string.
+    :param VERSION: Version of the `PROJECT`.
+    :param EXTENSIONS: Extension packages that can be combined with sphinx.
+    :param TEMPLATES: Path(s) containing templates.
+    :param EXCLUSIONS: Path(s) and patterns of files to exclude from docs.
+    :param THEME: The theme to use for HTML and HTML Help pages.
+    :param STATIC_PATHS: Path(s) that contain custom static files.
+    :param SOURCE_DIR: Directory for the source of the software package.
+    :param BUILD_DIR: Directory where the sphinx build will occur.
+    :return: List of files that were generated
     """
     fargs = check_args(**kwargs)
     print(fargs)
@@ -107,9 +96,9 @@ def generate_sphinx(*args, **kwargs):
 def generate_modules_rst(package, directory):
   """Generate the base modules.rst file
 
-  Args:
-      package (_type_): _description_
-      directory (_type_): _description_
+  :param package: name of th software package
+  :param directory: location where the artifacts will be placed.
+  :return: name/path of the generated file
   """
   log.debug("Generating modules.rst")
   template_file = join(dirname(abspath(__file__)), 
@@ -132,24 +121,20 @@ def generate_modules_rst(package, directory):
 def generate_rst(tree, directory="."):
     """Generate the rst files for the tree
 
-    Args:
-        tree (Node): Node class that is used to generate rst documents.
-        directory (str, optional): Output directory for all rst documents.
-        Defaults to ".".
+    :param tree (Node): Node class that is used to generate rst documents.
+    :param directory (str, optional): Output directory for all rst documents.
+    Defaults to ".".
         
-    Returns:
-      dict: Dictionary of artifacts that were created
+    :return: Dictionary of artifacts that were created
     """
     def _generate_rst(artifact_dict, t, d, templates, p=None):
         """Generate the rst files for the tree [inner function]
 
-        Args:
-            artifact_dict (Dict): Dictionary of artifacts
-            t (Node): Node class that is used to generate rst documents.
-            d (str, optional): Output directory for all rst documents.
-            Defaults to ".".
-            templates (dict): dict of Jinja Templates
-            p (str): Parent string for the current node. Defaults to None.
+        :param: artifact_dict (Dict): Dictionary of artifacts
+        :param t (Node): Node class that is used to generate rst documents.
+        :param d (str, optional): Output directory for all rst documents.
+        :param templates (dict): dict of Jinja Templates
+        :param p (str): Parent string for the current node. Defaults to None.
         """
         template_data = {"PACKAGE": p+"."+t.name if p is not None else t.name}
         subpackages = ["{}.{}".format(
@@ -159,7 +144,12 @@ def generate_rst(tree, directory="."):
               {"SUBPACKAGES": "\n   ".join(subpackages)}
             )
 
-        contents = [templates["module"].render(template_data)]
+        contents = []
+        contents.append(templates["module"].render(template_data))
+        for _, shortfile in t.project_files(t.public_filenames).items():
+               contents.append(
+                 templates["module"].render({"PACKAGE": shortfile}))
+
         classes = t.classes
         if classes:
             for c in classes:
@@ -220,12 +210,9 @@ def generate_rst(tree, directory="."):
 def generate_docs_dir(source_dir, build_dir):
   """Generate the information required to build Docs
 
-  Args:
-      source_dir (str): Directory of the source
-      build_dir (str): Build/Docs directory relative to source_dir
-
-  Returns:
-      dict: artifacts that were created
+  :param source_dir (str): Directory of the source
+  :param build_dir (str): Build/Docs directory relative to source_dir
+  :return: artifacts that were created
   """
   docs_dir = join(source_dir, build_dir)
   if exists(docs_dir):
