@@ -47,7 +47,6 @@ class Node:
                     if isinstance(found_cls, ast.ClassDef)
                 ]
             )
-        log.critical(classes)
         return classes
     
     @property

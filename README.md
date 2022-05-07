@@ -1,83 +1,109 @@
-# AUTODOC
+# AUTO DOC Ext
 
-Author: Brent Barbachem  
-Alias: barbacbd  
-Date: May 18, 2019
+![build workflow](https://github.com/barbacbd/autodoc/actions/workflows/python-app.yml/badge.svg)
+[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/) 
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/barbacbd/autodoc/pulse/commit-activity)
+[![GitHub latest commit](https://badgen.net/github/last-commit/barbacbd/autodoc)](https://github.com/barbacbd/autodoc/commit/)
 
-## Description
 
-A rst file generator for a python project.
+The repository contains the application consisting of an auto doc extension for sphinx's autodoc (which is already an extension).
 
-## Dependencies 
 
-1. Sphinx
-2. rinohtype
-3. sphinx-rtd-theme
+# AutoDocExt
 
-## How to ?
+The application to create the documentation and artifacts.
 
-1. Move to the project that you wish to document.
+## Parameters
 
-    `cd my_example_project`
+```
+usage: AutoDoc [-h] <project> [-a ...] [-e <version>] [-c <copyright>] [-t <theme>] [-s <source_dir>] [-b <build_dir>] [--extensions ...] [--exclusions ...] [--static ...] [--templates ...]
 
-2. Make a directory that the documents should go in.
+Application that will automatically generate the rst files and documentation
+for Sphinx. The application only supports python projects, even though sphinx
+documentation will support others.
 
-    `mkdir docs`
+positional arguments:
+  project               Name of the project that the application will document
 
-3. Move to that new directory and run sphinx-quickstart.
+optional arguments:
+  -h, --help            show this help message and exit
+  -a AUTHOR [AUTHOR ...], --author AUTHOR [AUTHOR ...]
+                        Author(s) (space separated) that created the project
+  -e VERSION, --version VERSION
+                        Version for the project
+  -c COPYRIGHT, --copyright COPYRIGHT
+                        Year of the copyright for the project
+  -t THEME, --theme THEME
+                        Sphinx docmumentation theme, see https://www.sphinx-
+                        doc.org/en/master/usage/theming.html for more
+                        information.
+  -d PROJECT_SOURCE, --source_dir PROJECT_SOURCE
+                        Directory where the project files reside. These files
+                        should include the ones for which documenation will be
+                        generated.
+  -s SOURCE_DIR, --install_dir SOURCE_DIR
+                        Installation directory for the artifacts. This will be
+                        the site where project documentation is generated.
+  -b BUILD_DIR, --build_dir BUILD_DIR
+                        Directory where the documentation will be built. The
+                        value should be relative to SOURCE_DIR.
+  --extensions EXTENSIONS [EXTENSIONS ...]
+                        Add any Sphinx extension module names here, as
+                        strings. These can be sphinx generated or custom
+                        extensions.
+  --templates TEMPLATES [TEMPLATES ...]
+                        Paths that contain templates, these should be relative
+                        to the SOURCE_DIR.
+  --exclusions EXCLUSIONS [EXCLUSIONS ...]
+                        List of patterns, relative to SOURCE_DIR, that match
+                        files and directories to ignore when looking for
+                        source files.
+  --static STATIC_PATHS [STATIC_PATHS ...]
+                        Add any paths that contain custom static files (such
+                        as style sheets), relative to SOURCE_DIR.
+  -v, --verbose         Verbosity level for logging
+  --hide_artifacts      When present, the artifacts file will be hidden in the
+                        SOURCE_DIR.
+```
 
-    `cd docs`
-    `sphinx-quickstart`
+### Notes
 
-4. In the newly generated source directory, alter the conf.py file.
+- `AUTHOR` is a list of names. To add a single user with first and last name use `"firstname lastname"`. To add multiple users use `"firstname1 lastname1" "firstname2 lastname2" ...`.
+- `extensions`, `templates`, `exclusions`, and `static_paths` are lists.
+- Each `v` you add with `-v` increases the depth of the logs. Example `-vvvv`.
 
-    4.1 Alter the extensions: 
-    
-        extensions = ['sphinx.ext.autodoc', 'rinoh.frontend.sphinx', 'sphinx_rtd_theme']
 
-    4.2 Uncomment the following lines:
-    
-        import os
-        import sys
-        sys.path.insert(0, os.path.abspath('../..'))
-        
-        *Note: the path in the section above has also been changed to `../..`*
-    
-    4.3 Add the following line after the block in 4.2
-    
-        sys.setrecursionlimit(1500)
-    
-    4.4 Replace the `html_theme` with:
-    
-        html_theme = "sphinx_rtd_theme"
+# AutoDocExtClean
 
-5. Move to the base directory for the project.
+The application will cleanup all artifacts that were created by the `AutoDocExt` application.
 
-6. Run the autodoc program
+## Parameters
 
-    `autodoc example -d "__pycache__" "other_dirs_to_exclude" -f "__main__.py"` 
-    
-    This will run the autodoc program on the python package `example` inside of the
-    `my_example_project` directory where the directories `__pycache__` and
-    `other_dirs_to_exclude` as well as files `__main__.py` will be excluded from the
-    search. As a default parameter, the rst files will be saved to a folder called rst_files.
+```
+usage: AutoDocExtClean [-h] [-s <source_dir>] [-v]
 
-7. Move all of the files from rst_files to `docs/source`
+Application that will destroy artifacts generated by AutoDocExtClean.
 
-8. Move back to the `docs` directory
+optional arguments:
+  -h, --help            show this help message and exit
+  -s SOURCE_DIR, --source_dir SOURCE_DIR
+                        Installation directory for the artifacts. This will be
+                        the site where project documentation is generated.
+  -v, --verbose         Verbosity level for logging
+```
+### Notes
 
-    `cd docs`
+- Each `v` you add with `-v` increases the depth of the logs. Example `-vvvv`.
 
-9. Make the html page.
+# FAQ
 
-    `make html`
+Q: I am receiving an error similar to
 
-10. Run the build with rinohtype
+```
+.../venv/lib/python3.6/site-packages/sphinx/ext/autosummary/templates/autosummary/base.rst:3: ERROR: Error in "currentmodule" directive:
+maximum 1 argument(s) allowed, 3 supplied.
+```
 
-    `sphinx-build -b rinoh source _build/rinoh`
+What do I do?
 
-11. You can find the html page inside of `docs/build/html/index.html`
-
-12. You can find a pdf inside of `example-docs/_build/rinoh/{project}.pdf`
-
-*If your python > 3.7 the latex generator for rinoh will fail*
+A: You can either delete the venv and try without a venv or simply add venv to the exclusions parameter.
