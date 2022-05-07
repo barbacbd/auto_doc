@@ -3,7 +3,7 @@
 [![Build](https://github.com/barbacbd/auto_doc/actions/workflows/python-app.yml/badge.svg)](https://github.com/barbacbd/auto_doc/actions/workflows/python-app.yml)
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/) 
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/barbacbd/autodoc/pulse/commit-activity)
-[![GitHub latest commit](https://badgen.net/github/last-commit/barbacbd/autodoc)](https://github.com/barbacbd/autodoc/commit/)
+[![GitHub latest commit](https://img.shields.io/github/last-commit/barbacbd/autodoc)](https://github.com/barbacbd/autodoc/commit/)
 
 
 The repository contains the application consisting of an auto doc extension for sphinx's autodoc (which is already an extension).
