@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>autodoc_ext package &mdash; autodoc_ext 1.0.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="autodoc_ext" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> autodoc_ext
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">autodoc_ext</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">autodoc_ext package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-autodoc_ext">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">autodoc_ext</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">autodoc_ext</a> &raquo;</li>
+      <li>autodoc_ext package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/rst_docs/autodoc_ext.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="autodoc-ext-package">
+<h1>autodoc_ext package<a class="headerlink" href="#autodoc-ext-package" title="Permalink to this headline"></a></h1>
+<section id="module-autodoc_ext">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-autodoc_ext" title="Permalink to this headline"></a></h2>
+<span class="target" id="module-autodoc_ext.templates"></span><dl class="py function">
+<dt class="sig sig-object py" id="autodoc_ext.templates.generate_docs_dir">
+<span class="sig-prename descclassname"><span class="pre">autodoc_ext.templates.</span></span><span class="sig-name descname"><span class="pre">generate_docs_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">build_dir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#autodoc_ext.templates.generate_docs_dir" title="Permalink to this definition"></a></dt>
+<dd><p>Generate the information required to build Docs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source_dir</strong> – Directory of the source</p></li>
+<li><p><strong>build_dir</strong> – Build/Docs directory relative to source_dir</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>artifacts that were created</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="autodoc_ext.templates.generate_modules_rst">
+<span class="sig-prename descclassname"><span class="pre">autodoc_ext.templates.</span></span><span class="sig-name descname"><span class="pre">generate_modules_rst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">package</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#autodoc_ext.templates.generate_modules_rst" title="Permalink to this definition"></a></dt>
+<dd><p>Generate the base modules.rst file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>package</strong> – name of th software package</p></li>
+<li><p><strong>directory</strong> – location where the artifacts will be placed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>name/path of the generated file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="autodoc_ext.templates.generate_rst">
+<span class="sig-prename descclassname"><span class="pre">autodoc_ext.templates.</span></span><span class="sig-name descname"><span class="pre">generate_rst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tree</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#autodoc_ext.templates.generate_rst" title="Permalink to this definition"></a></dt>
+<dd><p>Generate the rst files for the tree</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tree</strong> – Node class that is used to generate rst documents.</p></li>
+<li><p><strong>directory</strong> – Output directory for all rst documents.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dictionary of artifacts that were created</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="autodoc_ext.templates.generate_sphinx">
+<span class="sig-prename descclassname"><span class="pre">autodoc_ext.templates.</span></span><span class="sig-name descname"><span class="pre">generate_sphinx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#autodoc_ext.templates.generate_sphinx" title="Permalink to this definition"></a></dt>
+<dd><p>Find all .j2 extension files in this directory. Fill the template files
+with the parameters that were passed in to this function. See
+<cite>args.check_args</cite> for default values. The following artifacts will be placed
+into the <cite>SOURCE_DIR</cite>:
+- Makefile:  see <cite>Makefile.j2</cite>
+- make.bat:  see <cite>make.bat.j2</cite>
+- conf.py:   see <cite>conf.py.j2</cite>
+- index.rst: see <cite>index.rst.j2</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>PROJECT</strong> – Name of the project that the documents are generated for.</p></li>
+<li><p><strong>COPYRIGHT</strong> – Year of the copyright for the <cite>PROJECT</cite>.</p></li>
+<li><p><strong>AUTHOR</strong> – Author(s) of the <cite>PROJECT</cite> as a single string.</p></li>
+<li><p><strong>VERSION</strong> – Version of the <cite>PROJECT</cite>.</p></li>
+<li><p><strong>EXTENSIONS</strong> – Extension packages that can be combined with sphinx.</p></li>
+<li><p><strong>TEMPLATES</strong> – Path(s) containing templates.</p></li>
+<li><p><strong>EXCLUSIONS</strong> – Path(s) and patterns of files to exclude from docs.</p></li>
+<li><p><strong>THEME</strong> – The theme to use for HTML and HTML Help pages.</p></li>
+<li><p><strong>STATIC_PATHS</strong> – Path(s) that contain custom static files.</p></li>
+<li><p><strong>SOURCE_DIR</strong> – Directory for the source of the software package.</p></li>
+<li><p><strong>BUILD_DIR</strong> – Directory where the sphinx build will occur.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of files that were generated</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-autodoc_ext.args"></span><dl class="py function">
+<dt class="sig sig-object py" id="autodoc_ext.args.check_args">
+<span class="sig-prename descclassname"><span class="pre">autodoc_ext.args.</span></span><span class="sig-name descname"><span class="pre">check_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#autodoc_ext.args.check_args" title="Permalink to this definition"></a></dt>
+<dd><p>Check the arguments to ensure that the following parameters are passed and
+contain the correct type. If the type is not correctly formatted and can
+be formatted it will be altered, otherwise the data is reset to a proper
+empty value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>PROJECT</strong> – Name of the project that the documents are generated for.</p></li>
+<li><p><strong>COPYRIGHT</strong> – Year of the copyright for the <cite>PROJECT</cite>.</p></li>
+<li><p><strong>AUTHOR</strong> – Author(s) of the <cite>PROJECT</cite> as a single string.</p></li>
+<li><p><strong>VERSION</strong> – Version of the <cite>PROJECT</cite>.</p></li>
+<li><p><strong>EXTENSIONS</strong> – Extension packages that can be combined with sphinx.</p></li>
+<li><p><strong>TEMPLATES</strong> – Path(s) containing templates.</p></li>
+<li><p><strong>EXCLUSIONS</strong> – Path(s) and patterns of files to exclude from docs.</p></li>
+<li><p><strong>THEME</strong> – The theme to use for HTML and HTML Help pages.</p></li>
+<li><p><strong>STATIC_PATHS</strong> – Path(s) that contain custom static files.</p></li>
+<li><p><strong>SOURCE_DIR</strong> – Directory for the source of the software package.</p></li>
+<li><p><strong>BUILD_DIR</strong> – Directory where the sphinx build will occur.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dictionary formatted with the arguments above, if they did not</p>
+</dd>
+</dl>
+<p>exist in <cite>kwargs</cite>, defaults will be applied.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="autodoc_ext.args.list_arg_format">
+<span class="sig-prename descclassname"><span class="pre">autodoc_ext.args.</span></span><span class="sig-name descname"><span class="pre">list_arg_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list_of_values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected_types</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#autodoc_ext.args.list_arg_format" title="Permalink to this definition"></a></dt>
+<dd><p>Check that each value in <cite>list_of_values</cite> matches the expected_types. If
+the list of values is a primitive or simple type, it will be wrapped in
+a list and returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>list_of_values</strong> – List of values of expected types.</p></li>
+<li><p><strong>expected_types</strong> – tuple of types to be used for verification</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of values that matched the expected_types.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="autodoc_ext.args.simple_arg_format">
+<span class="sig-prename descclassname"><span class="pre">autodoc_ext.args.</span></span><span class="sig-name descname"><span class="pre">simple_arg_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected_types</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#autodoc_ext.args.simple_arg_format" title="Permalink to this definition"></a></dt>
+<dd><p>Check that the value is of an expected type. If it is not, use the
+default value:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> – Value to be checked</p></li>
+<li><p><strong>expected_types</strong> – tuple of types to be used for verification</p></li>
+<li><p><strong>default</strong> – value used when <cite>value</cite> is not of expected_types.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>value if matching expected types otherwise default</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-autodoc_ext.artifacts"></span><dl class="py function">
+<dt class="sig sig-object py" id="autodoc_ext.artifacts.destroy">
+<span class="sig-prename descclassname"><span class="pre">autodoc_ext.artifacts.</span></span><span class="sig-name descname"><span class="pre">destroy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_dir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#autodoc_ext.artifacts.destroy" title="Permalink to this definition"></a></dt>
+<dd><p>Read the artifacts file from the source directory. All of the artifacts
+that are logged in the file (known objects) will be destroyed. The labels
+in the file designated <cite>keep</cite> will be kept as part of the destruction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>source_dir</strong> – Source directory where the artifacts file will reside.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True when the data was successfully removed, false otherwise</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="autodoc_ext.artifacts.log_artifacts">
+<span class="sig-prename descclassname"><span class="pre">autodoc_ext.artifacts.</span></span><span class="sig-name descname"><span class="pre">log_artifacts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">artifacts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hide_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#autodoc_ext.artifacts.log_artifacts" title="Permalink to this definition"></a></dt>
+<dd><p>Create build process logs/artifacts that will be used for during the
+destruction/cleanup process. The name of the file will be
+<cite>autodoc_ext_artifacts.yaml</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source_dir</strong> – Source directory where the artifaces file will reside.</p></li>
+<li><p><strong>artifacts</strong> – Dictionary of created artifacts.</p></li>
+<li><p><strong>hide_file</strong> – When true [default], hide the artifacts file.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-autodoc_ext.tree"></span><dl class="py class">
+<dt class="sig sig-object py" id="autodoc_ext.tree.Node">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">autodoc_ext.tree.</span></span><span class="sig-name descname"><span class="pre">Node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#autodoc_ext.tree.Node" title="Permalink to this definition"></a></dt>
+<dd><p>A node or leaf of an entire tree. The Node/leaf will contain
+the information located in a directory (including files, classes,
+subdirectories, path).</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="autodoc_ext.tree.Node.all_filenames">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">all_filenames</span></span><a class="headerlink" href="#autodoc_ext.tree.Node.all_filenames" title="Permalink to this definition"></a></dt>
+<dd><p>Get all filenames (including path) contained in this instance</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Instance files with path</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="autodoc_ext.tree.Node.classes">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">classes</span></span><a class="headerlink" href="#autodoc_ext.tree.Node.classes" title="Permalink to this definition"></a></dt>
+<dd><p>Get the list of classes found in the files of this instance</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>List of classes that were found in the files of this tree.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="autodoc_ext.tree.Node.json">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">json</span></span><a class="headerlink" href="#autodoc_ext.tree.Node.json" title="Permalink to this definition"></a></dt>
+<dd><p>JSON formatted dictionary object for this node</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>json formatted dictionary for this instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="autodoc_ext.tree.Node.project_files">
+<span class="sig-name descname"><span class="pre">project_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filenames</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#autodoc_ext.tree.Node.project_files" title="Permalink to this definition"></a></dt>
+<dd><p>Get the project files without the extension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filenames</strong> – list of filenames in this instance.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dictionary of full filename along with the formatted name.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="autodoc_ext.tree.Node.public_filenames">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">public_filenames</span></span><a class="headerlink" href="#autodoc_ext.tree.Node.public_filenames" title="Permalink to this definition"></a></dt>
+<dd><p>Get all filenames (including path) contained in this instance that
+are not prefaced with an underscore.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Instance files with path</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="autodoc_ext.tree.generate_tree">
+<span class="sig-prename descclassname"><span class="pre">autodoc_ext.tree.</span></span><span class="sig-name descname"><span class="pre">generate_tree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#autodoc_ext.tree.generate_tree" title="Permalink to this definition"></a></dt>
+<dd><p>Generate the tree by walking the directory structure and creating
+a node for each directory that has been found.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>directory</strong> – Directory where all files for the project will reside.</p></li>
+<li><p><strong>parent</strong> – parent directory depth.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tree (Node) containing all information from the directory walk</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="autodoc_ext.__main__.LogColorFormatter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">autodoc_ext.__main__.</span></span><span class="sig-name descname"><span class="pre">LogColorFormatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datefmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'%'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#autodoc_ext.__main__.LogColorFormatter" title="Permalink to this definition"></a></dt>
+<dd><p>Create a logging formatter to color and format the log output</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="autodoc_ext.__main__.LogColorFormatter.FORMATS">
+<span class="sig-name descname"><span class="pre">FORMATS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{10:</span> <span class="pre">'\x1b[34;20m[%(levelname)s]:</span> <span class="pre">%(message)s\x1b[0m',</span> <span class="pre">20:</span> <span class="pre">'\x1b[32;20m[%(levelname)s]:</span> <span class="pre">%(message)s\x1b[0m',</span> <span class="pre">30:</span> <span class="pre">'\x1b[33;20m[%(levelname)s]:</span> <span class="pre">%(message)s\x1b[0m',</span> <span class="pre">40:</span> <span class="pre">'\x1b[31;20m[%(levelname)s]:</span> <span class="pre">%(message)s\x1b[0m',</span> <span class="pre">50:</span> <span class="pre">'\x1b[35;20m[%(levelname)s]:</span> <span class="pre">%(message)s\x1b[0m'}</span></em><a class="headerlink" href="#autodoc_ext.__main__.LogColorFormatter.FORMATS" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="autodoc_ext.__main__.LogColorFormatter.blue">
+<span class="sig-name descname"><span class="pre">blue</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[34;20m'</span></em><a class="headerlink" href="#autodoc_ext.__main__.LogColorFormatter.blue" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="autodoc_ext.__main__.LogColorFormatter.converter">
+<span class="sig-name descname"><span class="pre">converter</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#autodoc_ext.__main__.LogColorFormatter.converter" title="Permalink to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>localtime([seconds]) -&gt; (tm_year,tm_mon,tm_mday,tm_hour,tm_min,</dt><dd><p>tm_sec,tm_wday,tm_yday,tm_isdst)</p>
+</dd>
+</dl>
+<p>Convert seconds since the Epoch to a time tuple expressing local time.
+When ‘seconds’ is not passed in, convert the current time instead.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="autodoc_ext.__main__.LogColorFormatter.default_msec_format">
+<span class="sig-name descname"><span class="pre">default_msec_format</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'%s,%03d'</span></em><a class="headerlink" href="#autodoc_ext.__main__.LogColorFormatter.default_msec_format" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="autodoc_ext.__main__.LogColorFormatter.default_time_format">
+<span class="sig-name descname"><span class="pre">default_time_format</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'%Y-%m-%d</span> <span class="pre">%H:%M:%S'</span></em><a class="headerlink" href="#autodoc_ext.__main__.LogColorFormatter.default_time_format" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="autodoc_ext.__main__.LogColorFormatter.format">
+<span class="sig-name descname"><span class="pre">format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#autodoc_ext.__main__.LogColorFormatter.format" title="Permalink to this definition"></a></dt>
+<dd><p>Format the specified record as text.</p>
+<p>The record’s attribute dictionary is used as the operand to a
+string formatting operation which yields the returned string.
+Before formatting the dictionary, a couple of preparatory steps
+are carried out. The message attribute of the record is computed
+using LogRecord.getMessage(). If the formatting string uses the
+time (as determined by a call to usesTime(), formatTime() is
+called to format the event time. If there is exception information,
+it is formatted using formatException() and appended to the message.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="autodoc_ext.__main__.LogColorFormatter.formatException">
+<span class="sig-name descname"><span class="pre">formatException</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ei</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#autodoc_ext.__main__.LogColorFormatter.formatException" title="Permalink to this definition"></a></dt>
+<dd><p>Format and return the specified exception information as a string.</p>
+<p>This default implementation just uses
+traceback.print_exception()</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="autodoc_ext.__main__.LogColorFormatter.formatMessage">
+<span class="sig-name descname"><span class="pre">formatMessage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#autodoc_ext.__main__.LogColorFormatter.formatMessage" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="autodoc_ext.__main__.LogColorFormatter.formatStack">
+<span class="sig-name descname"><span class="pre">formatStack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stack_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#autodoc_ext.__main__.LogColorFormatter.formatStack" title="Permalink to this definition"></a></dt>
+<dd><p>This method is provided as an extension point for specialized
+formatting of stack information.</p>
+<p>The input data is a string as returned from a call to
+<code class="xref py py-func docutils literal notranslate"><span class="pre">traceback.print_stack()</span></code>, but with the last trailing newline
+removed.</p>
+<p>The base implementation just returns the value passed in.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="autodoc_ext.__main__.LogColorFormatter.formatTime">
+<span class="sig-name descname"><span class="pre">formatTime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datefmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#autodoc_ext.__main__.LogColorFormatter.formatTime" title="Permalink to this definition"></a></dt>
+<dd><p>Return the creation time of the specified LogRecord as formatted text.</p>
+<p>This method should be called from format() by a formatter which
+wants to make use of a formatted time. This method can be overridden
+in formatters to provide for any specific requirement, but the
+basic behaviour is as follows: if datefmt (a string) is specified,
+it is used with time.strftime() to format the creation time of the
+record. Otherwise, an ISO8601-like (or RFC 3339-like) format is used.
+The resulting string is returned. This function uses a user-configurable
+function to convert the creation time to a tuple. By default,
+time.localtime() is used; to change this for a particular formatter
+instance, set the ‘converter’ attribute to a function with the same
+signature as time.localtime() or time.gmtime(). To change it for all
+formatters, for example if you want all logging times to be shown in GMT,
+set the ‘converter’ attribute in the Formatter class.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="autodoc_ext.__main__.LogColorFormatter.green">
+<span class="sig-name descname"><span class="pre">green</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[32;20m'</span></em><a class="headerlink" href="#autodoc_ext.__main__.LogColorFormatter.green" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="autodoc_ext.__main__.LogColorFormatter.purple">
+<span class="sig-name descname"><span class="pre">purple</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[35;20m'</span></em><a class="headerlink" href="#autodoc_ext.__main__.LogColorFormatter.purple" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="autodoc_ext.__main__.LogColorFormatter.red">
+<span class="sig-name descname"><span class="pre">red</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[31;20m'</span></em><a class="headerlink" href="#autodoc_ext.__main__.LogColorFormatter.red" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="autodoc_ext.__main__.LogColorFormatter.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0m'</span></em><a class="headerlink" href="#autodoc_ext.__main__.LogColorFormatter.reset" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="autodoc_ext.__main__.LogColorFormatter.usesTime">
+<span class="sig-name descname"><span class="pre">usesTime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#autodoc_ext.__main__.LogColorFormatter.usesTime" title="Permalink to this definition"></a></dt>
+<dd><p>Check if the format uses the creation time of the record.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="autodoc_ext.__main__.LogColorFormatter.yellow">
+<span class="sig-name descname"><span class="pre">yellow</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[33;20m'</span></em><a class="headerlink" href="#autodoc_ext.__main__.LogColorFormatter.yellow" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="id0">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">autodoc_ext.tree.</span></span><span class="sig-name descname"><span class="pre">Node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id0" title="Permalink to this definition"></a></dt>
+<dd><p>A node or leaf of an entire tree. The Node/leaf will contain
+the information located in a directory (including files, classes,
+subdirectories, path).</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="id1">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">all_filenames</span></span><a class="headerlink" href="#id1" title="Permalink to this definition"></a></dt>
+<dd><p>Get all filenames (including path) contained in this instance</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Instance files with path</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="id2">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">classes</span></span><a class="headerlink" href="#id2" title="Permalink to this definition"></a></dt>
+<dd><p>Get the list of classes found in the files of this instance</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>List of classes that were found in the files of this tree.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="id3">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">json</span></span><a class="headerlink" href="#id3" title="Permalink to this definition"></a></dt>
+<dd><p>JSON formatted dictionary object for this node</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>json formatted dictionary for this instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">project_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filenames</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id4" title="Permalink to this definition"></a></dt>
+<dd><p>Get the project files without the extension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filenames</strong> – list of filenames in this instance.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dictionary of full filename along with the formatted name.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="id5">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">public_filenames</span></span><a class="headerlink" href="#id5" title="Permalink to this definition"></a></dt>
+<dd><p>Get all filenames (including path) contained in this instance that
+are not prefaced with an underscore.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Instance files with path</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="autodoc_ext" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Brent Barbachem.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
