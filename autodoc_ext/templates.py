@@ -23,6 +23,11 @@ subPackageTemplate = \
 
 '''
 
+autoBaseModuleTemplate = \
+'''.. automodule:: {{ PACKAGE }}
+
+'''
+
 autoModuleTemplate = \
 '''.. automodule:: {{ PACKAGE }}
    :members:
@@ -143,12 +148,24 @@ def generate_rst(tree, directory="."):
             )
 
         contents = []
-        contents.append(templates["module"].render(template_data))
-        for _, shortfile in t.project_files(t.public_filenames).items():
-               contents.append(
-                 templates["module"].render({"PACKAGE": shortfile}))
+        node_templates = t.templates
+        if "base" in node_templates:
+            contents.append(templates["base"].render({"PACKAGE": node_templates["base"]}))
+        
+        for mod in node_templates["modules"]:
+            contents.append(
+                 templates["module"].render({"PACKAGE": mod}))
 
-        classes = t.classes
+
+        #
+        #contents.append(templates["module"].render(template_data))
+        #for _, shortfile in t.project_files(t.public_filenames).items():
+        #       contents.append(
+        #         templates["module"].render({"PACKAGE": shortfile}))
+       
+        
+        #classes = t.classes
+        classes = node_templates["classes"]
         if classes:
             for c in classes:
                 auto_class_filler = {
@@ -183,6 +200,7 @@ def generate_rst(tree, directory="."):
     # Dictionary that will contain all Templates so they do not need to be 
     # generated each time the inner function is called
     templates = {
+      "base": Template(autoBaseModuleTemplate),
       "module": Template(autoModuleTemplate),
       "class": Template(autoClassTemplate),
       "subs": Template(subPackageTemplate)

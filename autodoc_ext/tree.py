@@ -78,6 +78,39 @@ class Node:
         return classes
 
     @property
+    def sphinx_name(self):
+        """Name that will be used by sphinx docs
+
+        :return: Formatted name for this node in the sphinx docs
+        """
+        return self.parent if self.parent else self.name
+    
+    @property
+    def templates(self):
+        """Create the unique set of template for this node so
+        that that there are no duplicates when the rst files are
+        generated. 
+
+        :return: unique set of templates
+        """
+        templates = {}
+        modules = list(self.project_files(self.public_filenames).values())
+        if not modules:
+            modules = list(self.project_files(self.all_filenames).values())
+        classes = self.classes
+        for m in modules:
+            for c in classes.copy():
+                if m in c:
+                    log.debug("  Removing tempalate for {}".format(c))
+                    classes.remove(c)
+
+        return {
+            "base": self.sphinx_name,
+            "modules": modules,
+            "classes": classes
+        }
+            
+    @property
     def json(self):
         """JSON formatted dictionary object for this node
 
@@ -108,12 +141,13 @@ class Node:
         return dumps(self.json, indent=4)
 
 
-def generate_tree(directory=".", parent=0):
+def generate_tree(directory=".", parent=0, exclusions=[]):
     """Generate the tree by walking the directory structure and creating
     a node for each directory that has been found.
 
     :param directory: Directory where all files for the project will reside.
     :param parent: parent directory depth.
+    :param exclusions: Exclude files/directories matching these names
     :return: A tree (Node) containing all information from the directory walk
     """
     log.info("Generating tree info for the directory {}".format(directory))
@@ -123,32 +157,37 @@ def generate_tree(directory=".", parent=0):
     else:
         full_dir = directory
 
-    base_dir_name = full_dir.split("/")[-1]
+    split_dir = full_dir.split("/")
+    base_dir_name = split_dir[-1]
     log.debug("Setting base directory name to {}".format(base_dir_name))
 
     leaf = Node(base_dir_name, path=full_dir)
-    if parent == 0:
-        leaf.parent = base_dir_name
-    else:
-        leaf.parent = ".".join(full_dir[-parent:])
+    leaf.parent = ".".join(split_dir[-(parent+1):])
 
+    log.debug("  {} ...".format(full_dir))
     for filename in os.listdir(full_dir):
 
+        log.debug("    {} ... ".format(filename))
+        
         if filename.startswith("."):
             log.warning("Hidden file {}, skipping ...".format(filename))
             continue
 
-        if not filename.endswith(".py"):
-            continue
-
         full_filename = os.path.join(full_dir, filename)
-        if os.path.islink(full_filename):
+        if os.path.isfile(full_filename) and not filename.endswith(".py"):
+            continue
+        elif os.path.islink(full_filename):
             log.warning("  Found link: {}, skipping ...".format(filename))
             continue
+        elif filename in exclusions:
+            log.warning("  Found exclusion: {}, skipping ...".format(filename))
+            continue
 
+        log.debug(full_filename)
         if os.path.isdir(full_filename):
             log.debug("  Found directory".format(filename))
-            leaf.children.append(generate_tree(full_filename))
+            leaf.children.append(generate_tree(
+                full_filename, parent=parent+1, exclusions=exclusions))
         else:
             log.debug("  Found file: {}".format(filename))
             leaf.files.append(filename)

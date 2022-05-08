@@ -196,7 +196,7 @@ def main():
         artifacts[temp] = False
 
     log.info("Source Directory set to {}".format(args.PROJECT_SOURCE))
-    src_tree = generate_tree(directory=args.PROJECT_SOURCE)
+    src_tree = generate_tree(directory=args.PROJECT_SOURCE, exclusions=args.EXCLUSIONS)
     rst_artifacts = generate_rst(src_tree, "{}/rst_docs".format(
         args.SOURCE_DIR))
     artifacts.update(rst_artifacts)
