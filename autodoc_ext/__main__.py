@@ -39,48 +39,56 @@ def main():
     """
     Main entry point for the program
     """
-    parser = argparse.ArgumentParser(
-        prog='AutoDocExt',
-        description=(
-            'Application that will automatically generate the rst files '
-            'and documentation for Sphinx. The application only supports '
-            'python projects, even though sphinx documentation will '
-            'support others.'
+    parser = argparse.ArgumentParser(prog='docu')
+    # Create the subparsers to allow one program to execute multiple paths
+    subparsers = parser.add_subparsers(dest='command')
+    subparsers.required = True
+
+    cleaner = subparsers.add_parser('clean')
+    cleaner.add_argument(
+        '-s', '--source_dir', dest='SOURCE_DIR',
+        type=str,
+        help=(
+            'Installation directory for the artifacts. This will be the site '
+            'where project documentation is generated.'
         ),
-        usage=(
-            'AutoDocExt [-h] <project> [-a ...] [-e <version>] '
-            '[-c <copyright>] [-t <theme>] [-d <source_dir>] '
-            '[-s <install_dir>] [-b <build_dir>] [--extensions ...] '
-            '[--exclusions ...] [--static ...] [--templates ...]'
-        )
+        default='.'
     )
-    parser.add_argument(
+    cleaner.add_argument(
+        '-v', '--verbose',
+        action='count',
+        default=0,
+        help='Verbosity level for logging'
+    )
+    
+    creator = subparsers.add_parser('create')
+    creator.add_argument(
         'PROJECT', metavar='project',
         type=str,
         help='Name of the project that the application will document'
     )
-    parser.add_argument(
+    creator.add_argument(
         '-a', '--author',
         dest='AUTHOR',
         nargs='+',
         help='Author(s) (space separated) that created the project',
         default=[]
     )
-    parser.add_argument(
+    creator.add_argument(
         '-e', '--version',
         dest='VERSION',
         type=str,
         help='Version for the project',
         default='0.0.0'
     )
-    parser.add_argument(
+    creator.add_argument(
         '-c', '--copyright',
         dest='COPYRIGHT',
         type=int,
         help='Year of the copyright for the project',
         default=datetime.now().year
     )
-    parser.add_argument(
+    creator.add_argument(
         '-t', '--theme', dest='THEME',
         type=str,
         help=(
@@ -90,7 +98,7 @@ def main():
         ),
         default='sphinx_rtd_theme'
     )
-    parser.add_argument(
+    creator.add_argument(
         '-d', '--source_dir', dest='PROJECT_SOURCE',
         type=str,
         help=(
@@ -99,8 +107,9 @@ def main():
         ),
         default='.'
     )
+
     # NOTE the destination is SOURCE_DIR below, that is for the tempaltes
-    parser.add_argument(
+    creator.add_argument(
         '-s', '--install_dir', dest='SOURCE_DIR',
         type=str,
         help=(
@@ -109,7 +118,7 @@ def main():
         ),
         default='.'
     )
-    parser.add_argument(
+    creator.add_argument(
         '-b', '--build_dir', dest='BUILD_DIR',
         type=str,
         help=(
@@ -118,7 +127,7 @@ def main():
         ),
         default='docs'
     )
-    parser.add_argument(
+    creator.add_argument(
         '--extensions', dest='EXTENSIONS',
         nargs='+',
         help=(
@@ -127,7 +136,7 @@ def main():
         ),
         default=['sphinx.ext.autodoc', 'sphinx.ext.autosummary']
     )
-    parser.add_argument(
+    creator.add_argument(
         '--templates', dest='TEMPLATES',
         nargs='+',
         help=(
@@ -136,7 +145,7 @@ def main():
         ),
         default=[]
     )
-    parser.add_argument(
+    creator.add_argument(
         '--exclusions', dest='EXCLUSIONS',
         nargs='+',
         help=(
@@ -145,7 +154,7 @@ def main():
         ),
         default=[]
     )
-    parser.add_argument(
+    creator.add_argument(
         '--static', dest='STATIC_PATHS',
         nargs='+',
         help=(
@@ -154,13 +163,7 @@ def main():
         ),
         default=[]
     )
-    parser.add_argument(
-        '-v', '--verbose',
-        action='count',
-        default=0,
-        help='Verbosity level for logging'
-    )
-    parser.add_argument(
+    creator.add_argument(
         '--hide_artifacts',
         help=(
             'When present, the artifacts file will be hidden in '
@@ -168,8 +171,14 @@ def main():
         ),
         action='store_true'
     )
-    args = parser.parse_args()
 
+    args = parser.parse_args()
+    create_logger(args)
+    globals()[args.command](args)
+
+    
+def create_logger(args):
+    """Initialize the logger."""
     # verbosity starts at 10 and moves to 50
     if args.verbose > 0:
         verbosity = 50 - (10*(args.verbose-1))
@@ -186,6 +195,11 @@ def main():
     handler.setFormatter(LogColorFormatter())
     log.addHandler(handler)
 
+
+def create(args):
+    """Execute the create functionality to document the 
+    project and create the artifacts.
+    """
     log.info("Generating templates")
     main_templates = generate_sphinx(**vars(args))
     log.debug("Created the following files from templates: \n\t{}".format(
@@ -221,50 +235,9 @@ def main():
             log.error("No Makefile found in {}".format(args.SOURCE_DIR))
 
 
-def cleanup():
-    # main entry point for destruction
-    parser = argparse.ArgumentParser(
-        prog='AutoDocExtClean',
-        description=(
-            'Application that will destroy artifacts generated by '
-            'AutoDocExtClean.'
-        ),
-        usage=(
-            'AutoDocExtClean [-h] [-s <source_dir>] [-v]'
-        )
-    )
-    parser.add_argument(
-        '-s', '--source_dir', dest='SOURCE_DIR',
-        type=str,
-        help=(
-            'Installation directory for the artifacts. This will be the site '
-            'where project documentation is generated.'
-        ),
-        default='.'
-    )
-    parser.add_argument(
-        '-v', '--verbose',
-        action='count',
-        default=0,
-        help='Verbosity level for logging'
-    )
-    args = parser.parse_args()
+def clean(args):
+    """Execute the cleanup of all artifacts."""
 
-    # verbosity starts at 10 and moves to 50
-    if args.verbose > 0:
-        verbosity = 50 - (10*(args.verbose-1))
-    else:
-        verbosity = logging.CRITICAL
-
-    # Create the logger. Use the default name for every log that will operate
-    # during the use of this application.
-    log = logging.getLogger()
-    log.setLevel(verbosity)
-
-    # Add a formatter to color the log output and format the text
-    handler = logging.StreamHandler()
-    handler.setFormatter(LogColorFormatter())
-    log.addHandler(handler)
 
     log.debug("Attempting to make clean on {} ...".format(platform))
     if platform.lower() in ("win32", "cygwin"):
