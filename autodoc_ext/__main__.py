@@ -171,19 +171,27 @@ def main():
         ),
         action='store_true'
     )
+    creator.add_argument(
+        '-v', '--verbose',
+        action='count',
+        default=0,
+        help='Verbosity level for logging'
+    )
 
     args = parser.parse_args()
-    create_logger(args)
-    globals()[args.command](args)
-
     
-def create_logger(args):
-    """Initialize the logger."""
     # verbosity starts at 10 and moves to 50
     if args.verbose > 0:
         verbosity = 50 - (10*(args.verbose-1))
     else:
         verbosity = logging.CRITICAL
+    
+    create_logger(verbosity)
+    globals()[args.command](args)
+
+    
+def create_logger(verbosity):
+    """Initialize the logger."""
 
     # Create the logger. Use the default name for every log that will operate
     # during the use of this application.
@@ -200,6 +208,7 @@ def create(args):
     """Execute the create functionality to document the 
     project and create the artifacts.
     """
+    log = logging.getLogger()
     log.info("Generating templates")
     main_templates = generate_sphinx(**vars(args))
     log.debug("Created the following files from templates: \n\t{}".format(
@@ -238,7 +247,7 @@ def create(args):
 def clean(args):
     """Execute the cleanup of all artifacts."""
 
-
+    log = logging.getLogger()
     log.debug("Attempting to make clean on {} ...".format(platform))
     if platform.lower() in ("win32", "cygwin"):
         log.debug("  Windows system ...")
