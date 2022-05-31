@@ -20,11 +20,15 @@ function INFO() {
     echo -e "${BLUE}[${FUNCNAME[0]}]: ${1}${COLOR_OFF}"
 }
 
+# These prints will be in yellow for better visualization
+# Gather information
+read -p $'\e[33mSource Directory\e[0m: ' SOURCE_DIR
 read -p $'\e[33mProject Name\e[0m: ' PROJECT
 read -p $'\e[33mAuthor(s)\e[0m: ' AUTHOR
 read -p $'\e[33mVersion\e[0m: ' VERSION
 read -p $'\e[33mCopyright year\e[0m: ' COPYRIGHT
 
+# for test purposes, echo the python version
 pyv=$(python3 -c 'import sys; print("{}.{}".format(sys.version_info.major, sys.version_info.minor))')
 INFO "python $pyv"
 
@@ -61,6 +65,7 @@ INFO "Creating directory docs, and pushing to stack."
 mkdir docs;
 pushd docs;
 
+# These are auto created by sphinx-quickstart, but skipping that step
 INFO "Creating directories build and source."
 mkdir build;
 mkdir source;
@@ -205,8 +210,7 @@ popd;
 
 INFO "Running sphinx-apidoc ...";
 echo $PROJECT
-echo "sphinx-apidoc -f -o ../docs/source/ ../$PROJECT;"
-sphinx-apidoc -f -o ../docs/source/ ../$PROJECT;
+sphinx-apidoc -f -o ../docs/source/ ../$SOURCE_DIR;
 
 # generate all of the docs!
 INFO "Running makefile ...";
